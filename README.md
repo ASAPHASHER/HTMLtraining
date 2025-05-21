@@ -1,2 +1,0 @@
-# HTMLtraining
-HTMLcode training
