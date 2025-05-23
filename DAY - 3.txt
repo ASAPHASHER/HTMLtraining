@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CONTACT FORM</title>
+</head>
+<body>
+<h1 style="background-color: red;">CONTACT FORM</h1>
+
+
+<form>
+<ul>
+  <li>
+  <label for="name">Name:</label>
+  <input type="text" name="name" required>
+  </li>
+  <br>
+  <li>
+  <label for="email">Email:</label>
+  <input type="email" name="email" required>
+  </li>
+  <br>
+  <li>
+  <label for="message">Message:</label>
+  <textarea  name="message" rows="4" required></textarea>
+  </li>
+  <br>
+  <button type="submit">Send Message</button>
+</form>
+</body>
+</html>
