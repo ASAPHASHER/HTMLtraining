@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Navbar</title>
+  <style>
+    /* Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #f8f9fb;
+      color: #333;
+    }
+
+    /* Navbar Container */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .menu {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .menu li a {
+      text-decoration: none;
+      color: white;
+      font-size: 1rem;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .menu li a:hover {
+      color: #ffd700;
+      transform: scale(1.05);
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .menu {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #6a11cb;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.4s ease-in-out;
+      }
+
+      .menu.open {
+        max-height: 300px;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">ASAPH ASHER N</div>
+    <ul class="menu" id="menu">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+  <main style="padding: 2rem;">
+    <h1>HI I AM ASAPH ASHER</h1>
+    <p>I am basically a HUMAN BEING like YOU 	&#128514;</p>
+  </main>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('menu');
+
+    hamburger.addEventListener('click', () => {
+      menu.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
