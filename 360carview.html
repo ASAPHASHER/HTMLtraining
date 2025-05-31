@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>360° Car Viewer - AutoSpin 360</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* ---------- Navbar ---------- */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #1a1a1a;
+      padding: 12px 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      animation: slideInTop 1s ease-out;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      animation: bounceIn 1.2s ease;
+    }
+
+    .logo img {
+      height: 44px;
+      margin-right: 12px;
+      animation: logoSpin 2s infinite alternate ease-in-out;
+    }
+
+    .logo h2 {
+      font-size: 26px;
+      margin: 0;
+      color: #00c6ff;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #00c6ff;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease-in-out;
+      z-index: 0;
+    }
+
+    .nav-links a:hover::before {
+      transform: scaleX(1);
+    }
+
+    .nav-links a:hover {
+      color: #000;
+    }
+
+    .nav-links a span {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ---------- Moving Banner Text (UPDATED) ---------- */
+    .moving-banner {
+      background: #00c6ff;
+      color: #000;
+      font-weight: bold;
+      padding: 18px 0;
+      overflow: hidden;
+      position: relative;
+      height: 50px;
+      font-size: 20px;
+      line-height: 50px;
+    }
+
+    .moving-banner span {
+      position: absolute;
+      white-space: nowrap;
+      will-change: transform;
+      animation: scrollLeft 20s linear infinite;
+    }
+
+    @keyframes scrollLeft {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* ---------- Typewriter ---------- */
+    .typewriter {
+      font-size: 22px;
+      border-right: 3px solid #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      margin: 30px auto;
+      animation: typing 4s steps(40, end) forwards, blink 0.7s infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* ---------- Main Content ---------- */
+    .container {
+      text-align: center;
+      padding: 60px 20px;
+      animation: fadeIn 2s ease;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      margin-bottom: 10px;
+      animation: floatUp 1s ease;
+    }
+
+    p {
+      font-size: 18px;
+      opacity: 0.85;
+      margin-bottom: 30px;
+    }
+
+    #upload {
+      background-color: #00c6ff;
+      color: white;
+      padding: 12px 22px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(0, 198, 255, 0.3);
+    }
+
+    #upload:hover {
+      background-color: #009ddb;
+      transform: scale(1.05);
+    }
+
+    #viewer {
+      width: 500px;
+      height: 300px;
+      margin: 40px auto;
+      background-color: #ffffff12;
+      border: 2px dashed #fff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(0,255,255,0.3);
+      animation: glowPulse 3s infinite ease-in-out;
+    }
+
+    #carImage {
+      max-height: 100%;
+      max-width: 100%;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    /* ---------- Animations ---------- */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      60% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes slideInTop {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    @keyframes logoSpin {
+      from { transform: rotate(-10deg); }
+      to { transform: rotate(10deg); }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 25px rgba(0,255,255,0.3); }
+      50% { box-shadow: 0 0 40px rgba(0,255,255,0.5); }
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .nav-links a {
+        width: 100%;
+        text-align: left;
+      }
+
+      #viewer {
+        width: 90%;
+        height: 250px;
+      }
+
+      .typewriter {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="https://img.icons8.com/fluency/48/car--v2.png" alt="Car Logo" />
+      <h2>2HL CARS</h2>
+    </div>
+    <div class="nav-links">
+      <a href="#"><span>🏠 Home</span></a>
+      <a href="#"><span>📍 Address</span></a>
+      <a href="#"><span>ℹ️ About Us</span></a>
+      <a href="#"><span>📞 Contact</span></a>
+    </div>
+  </div>
+
+  <!-- Moving Banner -->
+  <div class="moving-banner">
+    <span>🚗  Hi,thanks for visiting us today at {{dealership name}}! If you have any questions regarding the {{car model}} please feel free to ask US. You can visit us anytime again for another viewing. 🚙</span>
+  </div>
+
+  <!-- Animated Typewriter Slogan -->
+  <div class="typewriter">
+    Discover Cars Like Never Before – Spin, See, Believe.
+  </div>
+
+  <!-- Main Viewer -->
+  <div class="container">
+    <h1>🌀 360° Car Image View</h1>
+    <p>*Please Upload multiple side-view car images to simulate a full 360-degree view.</p>
+    <input type="file" id="upload" multiple accept="image/*" />
+
+    <div id="viewer">
+      <img id="carImage" src="" alt="Upload car images to view" />
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const upload = document.getElementById('upload');
+    const viewer = document.getElementById('carImage');
+    let images = [], current = 0, interval;
+
+    upload.addEventListener('change', (e) => {
+      images = Array.from(e.target.files).map(file => URL.createObjectURL(file));
+      if (images.length > 0) {
+        current = 0;
+        viewer.src = images[current];
+        clearInterval(interval);
+        interval = setInterval(() => {
+          current = (current + 1) % images.length;
+          viewer.style.opacity = 0;
+          setTimeout(() => {
+            viewer.src = images[current];
+            viewer.style.opacity = 1;
+          }, 150);
+        }, 150);
+      }
+    });
+  </script>
+
+</body>
+</html>
