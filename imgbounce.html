@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bouncing Image Animation</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: black;
+    }
+    #logo {
+      position: absolute;
+      width: 100px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <img id="logo" src="https:AB logo copy.png" alt="DVD Logo">
+
+  <script>
+    const logo = document.getElementById('logo');
+    let x = 100, y = 100;
+    let dx = 2, dy = 2;
+
+    const update = () => {
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+      const logoWidth = logo.offsetWidth;
+      const logoHeight = logo.offsetHeight;
+
+      x += dx;
+      y += dy;
+
+      // Bounce off walls
+      if (x + logoWidth >= screenWidth || x <= 0) {
+        dx = -dx;
+        changeColor();
+      }
+      if (y + logoHeight >= screenHeight || y <= 0) {
+        dy = -dy;
+        changeColor();
+      }
+
+      logo.style.left = x + "px";
+      logo.style.top = y + "px";
+
+      requestAnimationFrame(update);
+    };
+
+    // Optional: Change color when bouncing
+    const changeColor = () => {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+      logo.style.filter = `invert(1) drop-shadow(0 0 10px rgb(${r},${g},${b}))`;
+    };
+
+    update();
+  </script>
+</body>
+</html>
