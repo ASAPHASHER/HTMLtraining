@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bouncing Image</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #000;
+    }
+    #myImage {
+      position: absolute;
+      width: 100px; /* adjust image size */
+    }
+  </style>
+</head>
+<body>
+  <img id="myImage" src="https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png" alt="Bouncing Image">
+
+  <script>
+    const img = document.getElementById("myImage");
+    let x = 100;
+    let y = 100;
+    let dx = 2;
+    let dy = 2;
+
+    function moveImage() {
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+      const imgWidth = img.offsetWidth;
+      const imgHeight = img.offsetHeight;
+
+      x += dx;
+      y += dy;
+
+      if (x + imgWidth >= screenWidth || x <= 0) {
+        dx = -dx;
+      }
+
+      if (y + imgHeight >= screenHeight || y <= 0) {
+        dy = -dy;
+      }
+
+      img.style.left = x + "px";
+      img.style.top = y + "px";
+
+      requestAnimationFrame(moveImage);
+    }
+
+    moveImage();
+  </script>
+</body>
+</html>
