@@ -1,188 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Portfolio</title>
-  <style>
-    :root {
-      --black: #121212;
-      --violet: #8e44ad;
-      --light-grey: #dddddd;
-      --dark-grey: #2c2c2c;
-      --hover-violet: #9b59b6;
-    }
-
-    * {
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: var(--black);
-      color: var(--light-grey);
-    }
-
-    header {
-      background: linear-gradient(to right, var(--violet), var(--black));
-      padding: 3rem 1rem;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      opacity: 0.8;
-    }
-
-    nav {
-      background-color: var(--dark-grey);
-      display: flex;
-      justify-content: center;
-      padding: 1rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    nav a {
-      color: var(--light-grey);
-      text-decoration: none;
-      margin: 0 1rem;
-      font-weight: 600;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-
-    nav a:hover {
-      color: var(--hover-violet);
-      transform: scale(1.1);
-    }
-
-    section {
-      padding: 3rem 2rem;
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: var(--violet);
-      border-bottom: 2px solid var(--hover-violet);
-      display: inline-block;
-    }
-
-    p {
-      line-height: 1.6;
-      font-size: 1rem;
-    }
-
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    .project-card {
-      background-color: var(--dark-grey);
-      padding: 1.5rem;
-      border-radius: 10px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      cursor: pointer;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(142, 68, 173, 0.4);
-    }
-
-    .project-card h3 {
-      margin-bottom: 0.5rem;
-      color: var(--hover-violet);
-    }
-
-    footer {
-      background-color: var(--dark-grey);
-      text-align: center;
-      padding: 1.5rem 1rem;
-      font-size: 0.9rem;
-      color: #aaa;
-    }
-
-    .contact-info p {
-      margin: 0.5rem 0;
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 2rem;
-      }
-      nav a {
-        margin: 0 0.5rem;
-        font-size: 0.9rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portfolio</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            border-radius: 10px;
+            padding: 32px 24px;
+        }
+        h1, h2 {
+            color: #2a5298;
+        }
+        .intro {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .section {
+            margin-bottom: 28px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        .contact {
+            background: #2a5298;
+            color: #fff;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .projects li {
+            margin-bottom: 10px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 16px 6px;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <header>
-    <h1>ASAPH ASHER N</h1>
-    <p>Full-Stack Developer | Creative Coder | UI Enthusiast | Angular | React | Node.js | MongoDB | Express | Typescript | HTML | CSS | JavaScript |Power BI | SQL | Python | Prompt Engineer|</p>
-  </header>
-
-  <nav>
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      I'm ASAPH ASHER N, a passionate full-stack developer who loves building clean, interactive web applications. I enjoy solving problems with code and exploring creative UI designs using modern technologies.
-    </p>
-  </section>
-
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects">
-      <div class="project-card">
-        <h3>Portfolio Website</h3>
-        <p>Responsive site to showcase personal projects, designed with dark UI and smooth navigation.</p>
-      </div>
-      <div class="project-card">
-        <h3>To-Do List App</h3>
-        <p>JavaScript-powered app to track daily tasks with local storage support and animations.</p>
-      </div>
-      <div class="project-card">
-        <h3>Weather App</h3>
-        <p>Dynamic app using real-time weather API, styled with modern violet-black UI theme.</p>
-      </div>
+    <div class="container">
+        <div class="intro">
+            <h1>ASAPH ASHER</h1>
+            <p>Enthusiastic Computer Science student seeking a software development internship. Passionate about coding, problem-solving, and learning new technologies.</p>
+        </div>
+        <div class="section">
+            <h2>Education</h2>
+            <ul>
+                <li><strong>B.Sc. in Computer Science</strong>, XYZ University (2021 - Present)</li>
+                <li>Relevant Courses: Data Structures, Algorithms, Web Development, Databases</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>Skills</h2>
+            <ul>
+                <li>Programming: Python, Java, JavaScript, C++</li>
+                <li>Web: HTML, CSS, React</li>
+                <li>Tools: Git, VS Code, Linux</li>
+            </ul>
+        </div>
+        <div class="section projects">
+            <h2>Projects</h2>
+            <ul>
+                <li><strong>Personal Portfolio Website</strong> – Built a responsive website to showcase my projects and resume using HTML, CSS, and JavaScript.</li>
+                <li><strong>Todo List App</strong> – Developed a simple task manager with React and local storage.</li>
+                <li><strong>Library Management System</strong> – Created a Java-based application for managing book inventories and user records.</li>
+            </ul>
+        </div>
+        <div class="section contact">
+            <h2>Contact</h2>
+            <p>Email: asaphasher@gmail.com | LinkedIn: linkedin.com/in/asaphasher</p>
+        </div>
     </div>
-  </section>
-
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <div class="contact-info">
-      <p>Email: asaphasher@gmail.com</p>
-      <p>LinkedIn: linkedin.com/in/asaphasher</p>
-      <p>GitHub: github.com/asaphasher</p>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 ASAPH ASHER N. All rights reserved.</p>
-  </footer>
-
 </body>
 </html>
