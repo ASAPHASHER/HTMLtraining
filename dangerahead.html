@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Do Not Click (Tempting...)</title>
+<style>
+  :root{
+    --bg1:#0b0f14;
+    --fog1: rgba(200,200,255,0.03);
+    --accent:#ff6159;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: radial-gradient(1200px 600px at 10% 20%, rgba(80,0,120,0.12), transparent),
+                radial-gradient(1000px 500px at 90% 80%, rgba(0,60,120,0.06), transparent),
+                var(--bg1);
+    color:#eef2f7;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:2rem;
+  }
+
+  /* container */
+  .stage{
+    width:100%;
+    max-width:980px;
+    border-radius:18px;
+    padding:3.5rem;
+    text-align:center;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    position:relative;
+    overflow:hidden;
+  }
+
+  h1{
+    margin:0 0 0.3rem 0;
+    font-size:2.4rem;
+    letter-spacing:1px;
+  }
+  p.lead{
+    margin:0 0 1.5rem 0;
+    color:rgba(255,255,255,0.8);
+  }
+
+  /* button */
+  .btn{
+    appearance:none;
+    border:2px solid rgba(255,255,255,0.08);
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    color:var(--accent);
+    padding:0.9rem 1.6rem;
+    border-radius:999px;
+    font-weight:700;
+    font-size:1rem;
+    cursor:pointer;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{ transform:translateY(-4px); box-shadow:0 10px 30px rgba(0,0,0,0.45) }
+  .btn:active{ transform:translateY(-1px) scale(.99) }
+
+  /* fog layers for spooky atmosphere */
+  .fog{
+    position:absolute;
+    inset:-20% -10% -20% -10%;
+    pointer-events:none;
+    background-image:
+      radial-gradient(40% 40% at 10% 20%, rgba(255,255,255,0.02), transparent 20%),
+      radial-gradient(30% 30% at 80% 70%, rgba(200,200,255,0.02), transparent 20%),
+      linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));
+    mix-blend-mode: screen;
+    animation: drift 16s linear infinite;
+    opacity:0.9;
+  }
+  @keyframes drift{
+    0%{ transform:translateX(-4%); }
+    50%{ transform:translateX(4%); }
+    100%{ transform:translateX(-4%); }
+  }
+
+  /* hidden spooky face (SVG) */
+  .face{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) scale(.75);
+    width:70vmin;
+    max-width:700px;
+    pointer-events:none;
+    opacity:0;
+    transition: opacity 0.18s ease, transform 0.28s cubic-bezier(.2,.9,.1,1);
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+  }
+
+  /* surprise text (initially hidden) */
+  .boo{
+    position:absolute;
+    left:50%;
+    top:12%;
+    transform:translateX(-50%);
+    font-size:5rem;
+    font-weight:900;
+    color:var(--accent);
+    text-shadow: 0 6px 30px rgba(0,0,0,0.6);
+    opacity:0;
+    letter-spacing:8px;
+    transition: opacity .18s ease, transform .18s ease;
+    pointer-events:none;
+  }
+
+  /* vibration animation for the final jolt */
+  @keyframes vibrate {
+    0% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+    10% { transform: translateX(-48%) translateY(-2px) rotate(-1deg); }
+    20% { transform: translateX(-52%) translateY(1px) rotate(1deg); }
+    30% { transform: translateX(-49%) translateY(-1px) rotate(-1deg); }
+    40% { transform: translateX(-51%) translateY(1px) rotate(1deg); }
+    50% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+    100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+  }
+
+  /* final visible and big face */
+  .face.show{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1.03);
+  }
+  .boo.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(-6px);
+    animation: vibrate .5s linear 0s 2;
+  }
+
+  /* safety note */
+  .note{
+    position:absolute;
+    right:12px;
+    bottom:12px;
+    font-size:0.8rem;
+    color:rgba(255,255,255,0.6);
+    background: rgba(0,0,0,0.25);
+    padding:0.45rem 0.75rem;
+    border-radius:8px;
+  }
+
+  /* accessibility: hidden skip link visible when focused */
+  .skip-link{
+    position:absolute;
+    left:0;
+    top:0;
+    transform:translateY(-120%);
+    padding:0.5rem 1rem;
+    background:#111;
+    color:#fff;
+    text-decoration:none;
+  }
+  .skip-link:focus{ transform:translateY(0); outline:3px solid #fff }
+
+  /* smaller screens */
+  @media (max-width:520px){
+    .stage{ padding:2rem }
+    .boo{ font-size:3rem; top:6%; }
+  }
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#trigger">Skip scare</a>
+
+  <div class="stage" role="region" aria-label="Mysterious page">
+    <h1>Curiosity is a dangerous thing...</h1>
+    <p class="lead">If you dare — press the button. (This prank uses a user-initiated sound and animation.)</p>
+
+    <button id="trigger" class="btn" aria-pressed="false" aria-label="Trigger the scare">Trigger the scare</button>
+
+    <div class="fog" aria-hidden="true"></div>
+
+    <!-- spooky SVG face (simple, scalable) -->
+    <svg class="face" viewBox="0 0 600 600" aria-hidden="true">
+      <defs>
+        <radialGradient id="g1" cx="50%" cy="35%" r="60%">
+          <stop offset="0%" stop-color="#fff" stop-opacity="1"/>
+          <stop offset="35%" stop-color="#ffe" stop-opacity="0.1"/>
+          <stop offset="100%" stop-color="#000" stop-opacity="0.0"/>
+        </radialGradient>
+        <filter id="grain">
+          <feTurbulence baseFrequency="0.8" numOctaves="2" stitchTiles="stitch" result="t"/>
+          <feColorMatrix type="saturate" values="0" />
+          <feBlend in="SourceGraphic" in2="t" mode="overlay"/>
+        </filter>
+      </defs>
+
+      <!-- black circular backdrop -->
+      <circle cx="300" cy="300" r="260" fill="#05060a"/>
+      <!-- pale face shape -->
+      <ellipse cx="300" cy="320" rx="180" ry="220" fill="#e9e7ee" opacity="0.96"/>
+      <!-- eyes -->
+      <ellipse cx="240" cy="260" rx="34" ry="48" fill="#0b0b0b"/>
+      <ellipse cx="360" cy="260" rx="34" ry="48" fill="#0b0b0b"/>
+      <!-- pupils -->
+      <circle cx="240" cy="270" r="10" fill="#fff"/>
+      <circle cx="360" cy="270" r="10" fill="#fff"/>
+      <!-- mouth -->
+      <path d="M200 380 q100 80 200 0 q-100 80 -200 0" fill="#0b0b0b" stroke="rgba(0,0,0,0.6)" stroke-width="2"/>
+      <!-- cracks -->
+      <path d="M320 200 l40 -30" stroke="#222" stroke-width="2" opacity="0.4" />
+      <path d="M260 360 l-40 40" stroke="#222" stroke-width="2" opacity="0.4" />
+    </svg>
+
+    <!-- big BOO text -->
+    <div class="boo" aria-hidden="true">BOO!</div>
+
+    <div class="note" aria-hidden="true">⚠️ Click to trigger. No autoplay. If you are photosensitive or easily startled, don't click.</div>
+  </div>
+
+<script>
+/* ==========================
+   SAFE Jump-Scare Logic
+   - Trigger must be user-initiated (click)
+   - No autoplay sound
+   - Avoids fast flashing
+   ========================== */
+
+const btn = document.getElementById('trigger');
+const face = document.querySelector('.face');
+const boo = document.querySelector('.boo');
+let triggered = false;
+
+function playJumpSound() {
+  // Web Audio API: short 'surprise' sound using oscillator + noise burst
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const now = ctx.currentTime;
+
+    // create short broadband noise burst
+    const bufferSize = ctx.sampleRate * 0.3; // 0.3s
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i=0;i<bufferSize;i++){
+      // decaying noise to avoid harshness
+      data[i] = (Math.random()*2-1) * (1 - i/bufferSize) * 0.8;
+    }
+    const noise = ctx.createBufferSource();
+    noise.buffer = buffer;
+
+    // high-pitched oscillator for a 'shriek' top layer
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1000, now);
+    osc.frequency.exponentialRampToValueAtTime(200, now + 0.18);
+
+    // gain nodes to shape volume
+    const gainNoise = ctx.createGain();
+    gainNoise.gain.setValueAtTime(0.0001, now);
+    gainNoise.gain.exponentialRampToValueAtTime(0.6, now + 0.01);
+    gainNoise.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
+
+    const gainOsc = ctx.createGain();
+    gainOsc.gain.setValueAtTime(0.0001, now);
+    gainOsc.gain.exponentialRampToValueAtTime(0.8, now + 0.02);
+    gainOsc.gain.exponentialRampToValueAtTime(0.0001, now + 0.32);
+
+    // filter to reduce painful frequencies
+    const hp = ctx.createBiquadFilter();
+    hp.type = 'highshelf';
+    hp.frequency.value = 1200;
+    hp.gain.value = 6;
+
+    // master limiter-ish gain
+    const master = ctx.createGain();
+    master.gain.value = 0.9;
+
+    // connections
+    noise.connect(gainNoise).connect(master);
+    osc.connect(hp).connect(gainOsc).connect(master);
+    master.connect(ctx.destination);
+
+    // start
+    noise.start(now);
+    osc.start(now);
+    // stop after short duration
+    noise.stop(now + 0.32);
+    osc.stop(now + 0.32);
+  } catch (e) {
+    // audio not available or blocked
+    console.warn('Audio failed:', e);
+  }
+}
+
+function triggerScare() {
+  if (triggered) return;
+  triggered = true;
+  btn.setAttribute('aria-pressed','true');
+  // show BOO and face quickly
+  boo.classList.add('show');
+  face.classList.add('show');
+
+  // subtle camera-shake using root transform for a moment
+  const root = document.documentElement;
+  root.style.transition = 'transform .18s ease';
+  root.style.transform = 'translateX(-6px) rotate(-0.6deg)';
+  setTimeout(()=> root.style.transform='translateX(6px) rotate(0.8deg)', 120);
+  setTimeout(()=> root.style.transform='translateX(0) rotate(0)', 260);
+  setTimeout(()=> root.style.transition='', 400);
+
+  // play sound (user-initiated)
+  playJumpSound();
+
+  // after a short while, fade face out to avoid being stuck scary forever
+  setTimeout(()=>{
+    boo.classList.remove('show');
+    face.classList.remove('show');
+    btn.setAttribute('aria-pressed','false');
+    triggered = false;
+  }, 2200);
+}
+
+btn.addEventListener('click', (e)=>{
+  // slight delay to let the user realize it's about to happen
+  btn.disabled = true;
+  btn.textContent = 'Preparing...';
+  setTimeout(()=>{
+    triggerScare();
+    btn.textContent = 'Trigger the scare';
+    btn.disabled = false;
+  }, 550);
+});
+</script>
+</body>
+</html>
