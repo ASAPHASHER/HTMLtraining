@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catch the Ball Game</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #74b9ff, #0984e3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: "Poppins", sans-serif;
+      color: #fff;
+    }
+
+    #gameContainer {
+      position: relative;
+      width: 400px;
+      height: 500px;
+      background: #dfe6e9;
+      border: 4px solid #2d3436;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    #paddle {
+      position: absolute;
+      bottom: 20px;
+      width: 100px;
+      height: 15px;
+      background: #2d3436;
+      border-radius: 8px;
+      left: 150px;
+    }
+
+    #ball {
+      position: absolute;
+      top: 0;
+      left: 200px;
+      width: 20px;
+      height: 20px;
+      background: #e17055;
+      border-radius: 50%;
+    }
+
+    #scoreBoard {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #2d3436;
+    }
+
+    #gameOver {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      display: none;
+    }
+
+    #gameOver h2 {
+      margin: 0 0 10px 0;
+      color: #fff;
+    }
+
+    #restartBtn {
+      background: #00cec9;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #restartBtn:hover {
+      background: #019592;
+    }
+  </style>
+</head>
+<body>
+  <div id="gameContainer">
+    <div id="scoreBoard">Score: 0</div>
+    <div id="paddle"></div>
+    <div id="ball"></div>
+    <div id="gameOver">
+      <h2>Game Over!</h2>
+      <button id="restartBtn">Restart</button>
+    </div>
+  </div>
+
+  <script>
+    const paddle = document.getElementById("paddle");
+    const ball = document.getElementById("ball");
+    const scoreBoard = document.getElementById("scoreBoard");
+    const gameOverScreen = document.getElementById("gameOver");
+    const restartBtn = document.getElementById("restartBtn");
+
+    let paddleX = 150;
+    let ballX = 200;
+    let ballY = 0;
+    let ballSpeed = 3;
+    let ballDirectionX = 2;
+    let score = 0;
+    let gameRunning = true;
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft" && paddleX > 0) {
+        paddleX -= 20;
+      } else if (e.key === "ArrowRight" && paddleX < 300) {
+        paddleX += 20;
+      }
+      paddle.style.left = paddleX + "px";
+    });
+
+    function gameLoop() {
+      if (!gameRunning) return;
+
+      ballY += ballSpeed;
+      ballX += ballDirectionX;
+
+      if (ballX <= 0 || ballX >= 380) {
+        ballDirectionX *= -1;
+      }
+
+      ball.style.top = ballY + "px";
+      ball.style.left = ballX + "px";
+
+      if (ballY + 20 >= 480 && ballX + 20 > paddleX && ballX < paddleX + 100) {
+        ballSpeed += 0.3;
+        score++;
+        ballY = 0;
+        ballX = Math.random() * 380;
+        scoreBoard.textContent = "Score: " + score;
+      }
+
+      if (ballY > 500) {
+        endGame();
+      }
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    function endGame() {
+      gameRunning = false;
+      gameOverScreen.style.display = "block";
+    }
+
+    restartBtn.addEventListener("click", () => {
+      score = 0;
+      ballSpeed = 3;
+      ballY = 0;
+      gameRunning = true;
+      scoreBoard.textContent = "Score: 0";
+      gameOverScreen.style.display = "none";
+      gameLoop();
+    });
+
+    gameLoop();
+  </script>
+</body>
+</html>
