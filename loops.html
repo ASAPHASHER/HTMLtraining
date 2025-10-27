@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Print Object Data using Loops</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 40px;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    .output {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px 30px;
+      margin-bottom: 25px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .output:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    h3 {
+      color: #0077b6;
+      margin-bottom: 10px;
+      border-left: 5px solid #0077b6;
+      padding-left: 10px;
+    }
+
+    p {
+      margin: 5px 0;
+      padding-left: 10px;
+      font-size: 16px;
+      color: #555;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 20px;
+      }
+      .output {
+        padding: 15px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>Display Object Data using Different Loops</h2>
+
+  <div id="forInOutput" class="output"></div>
+  <div id="forEachOutput" class="output"></div>
+  <div id="forOfOutput" class="output"></div>
+
+  <script>
+    const student = {
+      name: "Alice",
+      age: 22,
+      course: "Computer Science",
+      grade: "A"
+    };
+
+    let forInResult = "<h3>Using for...in Loop:</h3>";
+    for (let key in student) {
+      forInResult += `<p>${key}: ${student[key]}</p>`;
+    }
+    document.getElementById("forInOutput").innerHTML = forInResult;
+
+    let forEachResult = "<h3>Using forEach Loop:</h3>";
+    Object.entries(student).forEach(([key, value]) => {
+      forEachResult += `<p>${key}: ${value}</p>`;
+    });
+    document.getElementById("forEachOutput").innerHTML = forEachResult;
+
+    let forOfResult = "<h3>Using for...of Loop:</h3>";
+    for (let [key, value] of Object.entries(student)) {
+      forOfResult += `<p>${key}: ${value}</p>`;
+    }
+    document.getElementById("forOfOutput").innerHTML = forOfResult;
+  </script>
+</body>
+</html>
