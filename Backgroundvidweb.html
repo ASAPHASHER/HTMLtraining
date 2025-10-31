@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Video Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            object-fit: cover;  
+        }
+
+        .content {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.4); 
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.3em;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #ffffffcc;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+
+
+    <video class="background-video" autoplay muted loop playsinline>
+        <source src="44748-439982672.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+
+    <div class="content">
+        <h1>Hello This is the Background Video Website</h1>
+        <p>Enjoy the immersive video background experience.</p>
+        <button class="btn">Learn More</button>
+    </div>
+
+</body>
+</html>
