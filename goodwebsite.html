@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luxury Website</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      overflow-x: hidden;
+      color: #f5f5f5;
+    }
+
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(60%);
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(15, 15, 15, 0.8);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      color: #ffd700;
+      letter-spacing: 2px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #f5f5f5;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ffd700, #cdaa00);
+      transition: width 0.4s ease;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 0 2rem;
+    }
+
+    .content h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+
+    .content p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      color: #e0e0e0;
+    }
+
+    .btn {
+      background: linear-gradient(45deg, #ffd700, #b8860b);
+      color: #0f0f0f;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+    }
+
+    footer {
+      position: relative;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 1rem 0;
+      background: rgba(15, 15, 15, 0.8);
+      backdrop-filter: blur(8px);
+      color: #bbb;
+      border-top: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    footer p {
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        background: rgba(15, 15, 15, 0.9);
+        position: absolute;
+        top: 60px;
+        right: 0;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        display: none;
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #ffd700;
+      }
+
+      nav ul li {
+        margin: 1rem 0;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .menu-toggle {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <video autoplay muted loop id="bg-video">
+    <source src="189043-884476401.mp4 " type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <header>
+    <h1>DESIGNEXPERTS</h1>
+    <div class="menu-toggle">☰</div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="content">
+    <h2>Welcome to DESIGNEXPERTS</h2>
+    <p>Experience sophistication, elegance, and innovation all in one place. Crafted for those who appreciate the finer things in life.</p>
+    <button class="btn">Discover More</button>
+  </div>
+
+  <footer>
+    <p>© 2025 LuxBrand. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector("nav ul");
+
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+  </script>
+</body>
+</html>
