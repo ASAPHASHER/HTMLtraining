@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessible Semantic HTML Example</title>
+</head>
+<body>
+
+  <!-- Landmark regions -->
+  <header role="banner">
+    <h1>Accessible Blog</h1>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="#main-content">Skip to content</a></li>
+        <li><a href="#articles">Articles</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" role="main">
+    <article id="articles">
+      <header>
+        <h2>Understanding Semantic HTML</h2>
+        <p><time datetime="2025-11-09">November 9, 2025</time> — by <a href="#about">Alex Developer</a></p>
+      </header>
+
+      <p>
+        Semantic HTML gives meaning to web content, making it easier for assistive technologies 
+        like screen readers to interpret. It also improves SEO and maintainability.
+      </p>
+
+      <figure>
+        <img src="semantic-structure.png" alt="Diagram of a webpage showing semantic elements like header, main, and footer.">
+        <figcaption>A visual breakdown of semantic elements in a typical webpage layout.</figcaption>
+      </figure>
+
+      <section aria-labelledby="benefits-heading">
+        <h3 id="benefits-heading">Benefits of Semantic HTML</h3>
+        <ul>
+          <li>Improves accessibility for screen readers.</li>
+          <li>Helps search engines understand content.</li>
+          <li>Makes code more readable and maintainable.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="example-heading">
+        <h3 id="example-heading">Example of Semantic Markup</h3>
+        <pre><code>&lt;article&gt;
+  &lt;header&gt;
+    &lt;h2&gt;Article Title&lt;/h2&gt;
+  &lt;/header&gt;
+  &lt;p&gt;Article content here...&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+      </section>
+
+      <footer>
+        <p>Tags: <a href="#">HTML</a>, <a href="#">Accessibility</a></p>
+      </footer>
+    </article>
+  </main>
+
+  <aside role="complementary">
+    <h2>Related Resources</h2>
+    <ul>
+      <li><a href="#">MDN: Using ARIA</a></li>
+      <li><a href="#">WebAIM: Semantic Structure</a></li>
+    </ul>
+  </aside>
+
+  <footer role="contentinfo" id="about">
+    <p>&copy; 2025 Accessible Blog. Written by <strong>Alex Developer</strong>.</p>
+    <p>Contact: <a href="mailto:alex@example.com">alex@example.com</a></p>
+  </footer>
+
+</body>
+</html>
