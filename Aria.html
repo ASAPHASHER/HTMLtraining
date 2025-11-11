@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accessible HTML Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    nav {
+      background: #333;
+      color: white;
+      padding: 10px;
+    }
+
+    nav a {
+      color: white;
+      margin-right: 15px;
+      text-decoration: none;
+    }
+
+    /* Simple modal styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal[aria-hidden="false"] {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      width: 300px;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+
+    input:invalid {
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation with role -->
+  <nav role="navigation" aria-label="Main navigation">
+    <a href="#home" accesskey="h">Home</a>
+    <a href="#about" accesskey="a">About</a>
+    <button id="openModalBtn" aria-haspopup="dialog" aria-expanded="false">
+      Open Contact Form
+    </button>
+  </nav>
+
+  <main id="home">
+    <h1>Welcome to Accessible HTML Example</h1>
+    <p>Press <kbd>Alt + H</kbd> for Home, <kbd>Alt + A</kbd> for About.</p>
+  </main>
+
+  <!-- Modal Dialog -->
+  <div class="modal" id="contactModal" role="dialog" aria-labelledby="dialogTitle" aria-modal="true" aria-hidden="true">
+    <div class="modal-content">
+      <h2 id="dialogTitle">Contact Us</h2>
+      <form id="contactForm">
+        <fieldset>
+          <legend>Contact Information</legend>
+
+          <label for="name">Name:</label><br>
+          <input type="text" id="name" name="name" required aria-describedby="nameError"><br>
+          <span id="nameError" class="error" aria-live="polite"></span><br>
+
+          <label for="email">Email:</label><br>
+          <input type="email" id="email" name="email" required aria-describedby="emailError"><br>
+          <span id="emailError" class="error" aria-live="polite"></span><br>
+
+          <button type="submit">Submit</button>
+          <button type="button" id="closeModalBtn">Close</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('contactModal');
+    const openBtn = document.getElementById('openModalBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const form = document.getElementById('contactForm');
+    const firstFocusable = form.querySelector('input');
+    const lastFocusable = closeBtn;
+
+    // Open modal
+    openBtn.addEventListener('click', () => {
+      modal.setAttribute('aria-hidden', 'false');
+      openBtn.setAttribute('aria-expanded', 'true');
+      firstFocusable.focus();
+    });
+
+    // Close modal
+    closeBtn.addEventListener('click', closeModal);
+    function closeModal() {
+      modal.setAttribute('aria-hidden', 'true');
+      openBtn.setAttribute('aria-expanded', 'false');
+      openBtn.focus();
+    }
+
+    // Trap focus inside modal
+    modal.addEventListener('keydown', e => {
+      if (e.key === 'Tab') {
+        const focusable = form.querySelectorAll('input, button');
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      } else if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // Simple validation messages
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let valid = true;
+
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      document.getElementById('nameError').textContent = '';
+      document.getElementById('emailError').textContent = '';
+
+      if (!name.value.trim()) {
+        valid = false;
+        document.getElementById('nameError').textContent = 'Name is required.';
+      }
+
+      if (!email.validity.valid) {
+        valid = false;
+        document.getElementById('emailError').textContent = 'Enter a valid email.';
+      }
+
+      if (valid) {
+        alert('Form submitted successfully!');
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
