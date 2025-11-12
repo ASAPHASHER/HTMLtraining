@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Data and Microdata Example</title>
+
+  <!-- ✅ JSON-LD (Recommended by Google for SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "Galaxy Pro X Headphones",
+    "image": "https://example.com/images/galaxy-pro-x.jpg",
+    "description": "High-fidelity wireless headphones with noise cancellation.",
+    "sku": "GPX-1000",
+    "brand": {
+      "@type": "Brand",
+      "name": "SoundMax"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://example.com/products/galaxy-pro-x",
+      "priceCurrency": "USD",
+      "price": "199.99",
+      "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.6",
+      "reviewCount": "134"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <h1>Galaxy Pro X Headphones</h1>
+  <div itemscope itemtype="https://schema.org/Product">
+    <img itemprop="image" src="https://example.com/images/galaxy-pro-x.jpg" alt="Galaxy Pro X Headphones" width="250">
+
+    <h2 itemprop="name">Galaxy Pro X Headphones</h2>
+    <p itemprop="description">High-fidelity wireless headphones with noise cancellation.</p>
+
+    <p><strong>Brand:</strong> <span itemprop="brand">SoundMax</span></p>
+    <p><strong>Price:</strong> <span itemprop="price" content="199.99">$199.99</span></p>
+    <p><strong>SKU:</strong> <span itemprop="sku">GPX-1000</span></p>
+
+    <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+      <p>Rating: <span itemprop="ratingValue">4.6</span> / 5 (based on <span itemprop="reviewCount">134</span> reviews)</p>
+    </div>
+  </div>
+
+  <hr>
+  <button 
+    id="add-to-cart"
+    data-product-id="GPX-1000"
+    data-product-name="Galaxy Pro X Headphones"
+    data-product-price="199.99"
+    data-product-brand="SoundMax">
+    Add to Cart
+  </button>
+
+  <script>
+  
+    document.getElementById('add-to-cart').addEventListener('click', function() {
+      const product = {
+        id: this.dataset.productId,
+        name: this.dataset.productName,
+        price: this.dataset.productPrice,
+        brand: this.dataset.productBrand
+      };
+      console.log("Product added to cart:", product);
+      alert(`Added ${product.name} ($${product.price}) to cart!`);
+    });
+  </script>
+
+</body>
+</html>
