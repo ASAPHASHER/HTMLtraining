@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Web Components Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🔥 Web Components: Shadow DOM + Custom Elements</h1>
+
+  <!-- Template for the custom component -->
+  <template id="card-template">
+    <style>
+      .card {
+        width: 250px;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: 0.3s ease;
+      }
+
+      .card:hover {
+        transform: scale(1.03);
+      }
+
+      .title {
+        font-size: 1.3em;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .content {
+        font-size: 0.95em;
+        color: #444;
+      }
+    </style>
+
+    <div class="card">
+      <div class="title">
+        <!-- Slot for title -->
+        <slot name="title"></slot>
+      </div>
+
+      <div class="content">
+        <!-- Slot for body text -->
+        <slot name="content"></slot>
+      </div>
+    </div>
+  </template>
+
+  <!-- Using the custom element -->
+  <my-card>
+    <span slot="title">Custom Web Component</span>
+    <span slot="content">This card is created using Shadow DOM and HTML templates.</span>
+  </my-card>
+
+  <my-card>
+    <span slot="title">Reusable Component</span>
+    <span slot="content">You can reuse this card anywhere with consistent styling.</span>
+  </my-card>
+
+  <script>
+    class MyCard extends HTMLElement {
+      constructor() {
+        super();
+
+        // Attach Shadow DOM
+        const shadow = this.attachShadow({ mode: "open" });
+
+        // Get template content
+        const template = document.getElementById("card-template");
+        const templateContent = template.content.cloneNode(true);
+
+        // Append content inside Shadow DOM
+        shadow.appendChild(templateContent);
+      }
+    }
+
+    // Register the custom element
+    customElements.define("my-card", MyCard);
+  </script>
+
+</body>
+</html>
