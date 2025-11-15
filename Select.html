@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accessible A11y Demo</title>
+
+  <style>
+    /* Visible focus outlines for keyboard users */
+    :focus {
+      outline: 3px solid #4A90E2;
+      outline-offset: 4px;
+    }
+
+    nav a {
+      padding: 8px 12px;
+      display: inline-block;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 10px;
+      background: black;
+      color: white;
+      padding: 8px;
+      z-index: 100;
+    }
+
+    .skip-link:focus {
+      top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Skip to main content (Keyboard Navigation) -->
+  <a href="#main" class="skip-link">Skip to Main Content</a>
+
+  <!-- Header with correct landmark role -->
+  <header role="banner">
+    <h1>Accessible Website Example</h1>
+  </header>
+
+  <!-- Navigation with aria labels -->
+  <nav role="navigation" aria-label="Main Menu">
+    <a href="#section1" tabindex="0">Home</a>
+    <a href="#section2" tabindex="0">Products</a>
+    <a href="#section3" tabindex="0">Contact</a>
+  </nav>
+
+  <!-- Main content area -->
+  <main id="main" role="main">
+    
+    <!-- Section with labeled structure -->
+    <section id="section1" aria-labelledby="home-title">
+      <h2 id="home-title">Home Section</h2>
+      <p>Welcome! This page includes accessibility features for screen readers and keyboard users.</p>
+    </section>
+
+    <!-- Expandable accordion with ARIA attributes -->
+    <section id="section2" aria-labelledby="products-title">
+      <h2 id="products-title">Products (ARIA Accordion Example)</h2>
+
+      <button aria-expanded="false" aria-controls="panel1" id="btn1">
+        📦 Show Product Details
+      </button>
+
+      <div id="panel1" role="region" aria-labelledby="btn1" hidden>
+        <p>Here are the product details. Accessible accordions use aria-expanded & aria-controls.</p>
+      </div>
+    </section>
+
+    <!-- Form with labels & descriptions -->
+    <section id="section3" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact Us</h2>
+
+      <form aria-describedby="form-desc">
+        <p id="form-desc">All fields are accessible and screen-reader friendly.</p>
+
+        <label for="name">Name:</label>
+        <input id="name" type="text" aria-required="true"><br><br>
+
+        <label for="email">Email:</label>
+        <input id="email" type="email" aria-required="true"><br><br>
+
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- Footer landmark -->
+  <footer role="contentinfo">
+    <p>© 2025 Accessible Demo</p>
+  </footer>
+
+  <!-- Accessible accordion script -->
+  <script>
+    const btn = document.getElementById('btn1');
+    const panel = document.getElementById('panel1');
+
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', !expanded);
+      panel.hidden = expanded;
+    });
+  </script>
+
+</body>
+</html>
