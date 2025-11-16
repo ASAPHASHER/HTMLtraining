@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Internationalization Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #444;
+            width: 400px;
+        }
+        .rtl-box {
+            direction: rtl;
+            background: #f0f0f0;
+            padding: 10px;
+        }
+        .ltr-box {
+            direction: ltr;
+            background: #e8f8ff;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="section">
+    <h3 lang="en">English Text</h3>
+    <p>This is a simple left-to-right sentence.</p>
+</div>
+
+<div class="section">
+    <h3 lang="ar">الجملة العربية</h3>
+    <p class="rtl-box">هذا مثال على نص باللغة العربية.</p>
+</div>
+
+<div class="section">
+    <h3>Mixing LTR and RTL Text</h3>
+    <p class="ltr-box">The brand name <bdi>سامسونج</bdi> appears correctly inside English text.</p>
+</div>
+
+<div class="section" dir="rtl">
+    <h3>صفحة من اليمين إلى اليسار</h3>
+    <p>هذا القسم يستخدم اتجاه الصفحة من اليمين إلى اليسار.</p>
+</div>
+
+</body>
+</html>
