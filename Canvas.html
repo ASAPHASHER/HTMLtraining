@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas and SVG Demo</title>
+    <style>
+        .svg-circle {
+            fill: orange;
+            stroke: black;
+            stroke-width: 3;
+        }
+
+        .svg-animate {
+            fill: blue;
+            animation: move 3s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translateX(0); }
+            to { transform: translateX(120px); }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Canvas Drawing</h2>
+    <canvas id="myCanvas" width="300" height="200" style="border:1px solid black;"></canvas>
+
+    <h2>SVG Shape</h2>
+    <svg width="300" height="200">
+        <circle class="svg-circle" cx="100" cy="100" r="50" />
+    </svg>
+
+    <h2>SVG Animation</h2>
+    <svg width="300" height="200">
+        <circle class="svg-animate" cx="50" cy="100" r="40" />
+    </svg>
+
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "lightblue";
+        ctx.fillRect(20, 20, 120, 80);
+        ctx.beginPath();
+        ctx.arc(200, 100, 40, 0, Math.PI * 2);
+        ctx.fillStyle = "red";
+        ctx.fill();
+    </script>
+
+</body>
+</html>
